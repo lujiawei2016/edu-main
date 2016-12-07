@@ -43,7 +43,6 @@ public class UserController {
 	public String saveUser(String username,String password){
 		userService.saveUser(username, password);;
 		System.out.println(redisUtils.get("name3"));
-		
 		return "0";
 	}
 	
