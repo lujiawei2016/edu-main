@@ -57,6 +57,7 @@ public class TT {
 		for(User u:userListRedis){
 			System.out.println(u.getUsername() + " = "+u.getAddress());
 		}
+		
 	}
 	
 }
