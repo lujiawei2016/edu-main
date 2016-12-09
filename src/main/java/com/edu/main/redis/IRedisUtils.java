@@ -1,6 +1,6 @@
 package com.edu.main.redis;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 
@@ -21,6 +21,18 @@ public interface IRedisUtils {
 	 * @param value
 	 */
 	public void put(String key, String value);
+	
+	/**
+	 * 
+	 * @Description  将字符串放入到redis中并指定有效时间
+	 * @author       lujiawei
+	 * @date         2016年12月9日 下午2:23:58
+	 * @param key
+	 * @param value
+	 * @param timeout
+	 * @param unit
+	 */
+	public void put(String key, String value,long timeout,TimeUnit unit);
 
 	/**
 	 * 
@@ -32,6 +44,18 @@ public interface IRedisUtils {
 	 * @param value
 	 */
     public void put(String key, Object value);
+    
+    /**
+     * 
+     * @Description  将对象放入到redis中并制定有效时间
+     * @author       lujiawei
+     * @date         2016年12月9日 下午2:25:11
+     * @param key
+     * @param value
+     * @param timeout
+     * @param unit
+     */
+    public void put(String key, Object value,long timeout,TimeUnit unit);
   
     /**
      * 

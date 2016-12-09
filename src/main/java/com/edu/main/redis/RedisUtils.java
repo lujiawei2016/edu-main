@@ -1,10 +1,9 @@
 package com.edu.main.redis;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.SerializationUtils;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
@@ -33,6 +32,19 @@ public class RedisUtils implements IRedisUtils {
         }
         redisTemplate.opsForHash().put(key, key, value);
 	}
+	
+	/**
+	 * 将字符串放入到redis并制定有效时间
+	 */
+	@Override
+	public void put(String key, String value, long timeout, TimeUnit unit) {
+		redisTemplate.multi();
+		if (key==null || "".equals(key)) {  
+            return;  
+        }
+        redisTemplate.opsForHash().put(key, key, value);
+        redisTemplate.expire(key, timeout, unit);
+	}
 
 	/**
 	 * 将对象放入到redis
@@ -44,6 +56,19 @@ public class RedisUtils implements IRedisUtils {
             return;  
         }  
         redisTemplate.opsForHash().put(key, key, new Gson().toJson(value));
+	}
+	
+	/**
+	 * 将对象放入到redis并制定有效时间
+	 */
+	@Override
+	public void put(String key, Object value, long timeout, TimeUnit unit) {
+		redisTemplate.multi();
+		if (key==null || "".equals(key)) {  
+            return;  
+        }  
+        redisTemplate.opsForHash().put(key, key, new Gson().toJson(value));
+        redisTemplate.expire(key, timeout, unit);
 	}
 
 	/**
